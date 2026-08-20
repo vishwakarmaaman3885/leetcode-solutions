@@ -1,4 +1,4 @@
-select u.name as name, coalesce(sum(r.distance),0) as travelled_distance
+select u.name as name, ifnull(sum(r.distance),0) as travelled_distance
 from users as u
 left join rides as r on u.id = r.user_id
 group by r.user_id
