@@ -1,6 +1,6 @@
-select machine_id,
-round(avg(next-timestamp),3) as processing_time
-from (select *,
-Lead(timestamp) over(partition by machine_id,process_id order by timestamp) as next
-from activity) as a
-group by machine_id;
+select a.machine_id,
+round(avg(a.timestamp-b.timestamp),3) as processing_time
+from activity as a
+join activity as b on a.machine_id = b.machine_id and a.process_id = b.process_id
+where a.activity_type = "end" and b.activity_type = "start"
+group by a.machine_id;
