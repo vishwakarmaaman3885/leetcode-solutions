@@ -2,5 +2,5 @@
 
 select tweet_id
 from tweets
-where  length(content)>15
+where  length(content)>15;
 
