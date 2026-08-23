@@ -1,5 +1,7 @@
 # Aman
-select product_id, product_name, description
+select product_id, 
+product_name, 
+description
 from products
 where regexp_like(
 description,
