@@ -1,6 +1,5 @@
 select e.name as name
 from employee as e
-where (select 
-count(*)
-from employee as r
-where r.managerid = e.id)>=5;
+join employee as r on r.managerid = e.id
+group by e.id
+having count(r.managerid)>=5;
