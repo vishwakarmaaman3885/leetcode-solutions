@@ -1,6 +1,5 @@
 # Aman
-select (select  distinct salary
-from employee
-order by salary desc 
-limit 1 offset 1
-) as secondhighestsalary;   
+select max(salary) as secondhighestsalary
+from (select *, dense_rank() over(order by salary desc) as rnk
+from employee) as a
+where rnk = 2;
