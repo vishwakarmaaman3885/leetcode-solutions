@@ -1,5 +1,7 @@
 # Aman
-select distinct l1.num as consecutivenums
-from  logs as l1,logs as l2, logs as l3
-where l1.id = l2.id-1 and l2.id = l3.id-1 
-and l1.num = l2.num and l2.num = l3.num and l3.num = l1.num;
+select distinct num as consecutivenums
+from (select *, lag(num,1) over(order by id) as prev,
+lag(num,2) over(order by id) as prev_to_prev
+from logs) a
+where num = prev and
+num = prev_to_prev;
