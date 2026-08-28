@@ -1,6 +1,5 @@
 # Aman
-select 'Low Salary' as category,
-count(*) as ACCOUNTS_COUNT
+select "Low Salary" as category,count(*) as accounts_count
 from accounts
 where income<20000
 union all
