@@ -1,12 +1,5 @@
 # Aman
-with cte as (select stock_name, sum(price) as gained
+select stock_name,
+sum(case when operation = "Sell" then price else-price end) as capital_gain_loss
 from stocks
-where operation = "Sell"
-group by stock_name),
-ct as( select stock_name, sum(price) as spent
-from stocks
-where operation = "Buy"
-group by stock_name) 
-select a.stock_name, gained-spent as capital_gain_loss
-from cte as a
-join ct as b on a.stock_name = b.stock_name;
+group by stock_name;
