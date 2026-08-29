@@ -1,9 +1,7 @@
 # Aman
 select sample_id, dna_sequence, species,
-(case when dna_sequence like "ATG%" then 1 else 0 end) as has_start,
-(case when dna_sequence like "%TAA"or dna_sequence like "%TAG"
-or dna_sequence like "%TGA" then 1 else 0 end ) as has_stop,
-(case when dna_sequence like "%ATAT%" then 1 else 0 end ) as has_atat,
-(case when dna_sequence like "%GGG%" or dna_sequence like "%GGGG%" then 1 else 0 end) as has_ggg
-from samples
-group by sample_id;  
+(dna_sequence regexp "^ATG") as has_start,
+(dna_sequence regexp '(TAA|TAG|TGA)$') as has_stop,
+(dna_sequence regexp 'ATAT') as has_atat,
+(dna_sequence regexp 'GGG') as has_ggg
+from samples;
