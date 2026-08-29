@@ -1,10 +1,10 @@
 # Aman
 select user_id,
-round(avg(case when activity_type = "free_trial" then activity_duration end),2) as
+round(avg(if(activity_type = "free_trial", activity_duration,Null)),2) as
 trial_avg_duration,
-round(avg(case when activity_type  = "Paid" then activity_duration end),2) as
+round(avg(if(activity_type = "paid",activity_duration,null)),2) as
 paid_avg_duration
-from userActivity
+from useractivity
 group by user_id
-having sum(activity_type = "Paid")>0 and trial_avg_duration is not null
-order by user_id ; 
+having trial_avg_duration is not null and  paid_avg_duration is not null
+order by user_id;
