@@ -1,5 +1,4 @@
-select *
-from (select id, movie,description,rating
+select id, movie, description, rating
 from cinema
-where description != 'boring' and id % 2=1
-order by rating desc) as a;
+where id %2!=0 and description != "boring"
+order by rating desc; 
