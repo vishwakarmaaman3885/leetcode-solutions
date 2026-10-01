@@ -1,4 +1,6 @@
-select project_id, round(avg(experience_years),2) as average_years
+with cte as (select project_id, round(avg(experience_years),2) as average_years
 from project as p
 join employee as e on p.employee_id = e.employee_id
-group by project_id;
+group by project_id) 
+select project_id, average_years
+from cte;
