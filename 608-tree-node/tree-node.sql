@@ -1,4 +1,3 @@
-# Aman
 select id,
 case
 when p_id is null then "Root"
