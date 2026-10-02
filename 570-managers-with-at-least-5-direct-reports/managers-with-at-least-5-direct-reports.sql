@@ -1,4 +1,4 @@
-select e1.name
+select e1.name as name
 from employee as e1
 join employee as e2 on e1.id = e2.managerid
 group by e1.id
