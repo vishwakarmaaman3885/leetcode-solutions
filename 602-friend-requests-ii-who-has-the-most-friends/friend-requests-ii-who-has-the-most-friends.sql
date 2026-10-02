@@ -1,12 +1,12 @@
-# Aman union all- keeps duplicate
 select requester_id as id, count(*) as num
 from(
     select requester_id
-    from requestaccepted
-    union all
+    from RequestAccepted
+    union all 
     select accepter_id
-    from requestaccepted
+    from RequestAccepted
 ) as friends
-group by id
+group  by id
 order by num desc
 limit 1;
+
