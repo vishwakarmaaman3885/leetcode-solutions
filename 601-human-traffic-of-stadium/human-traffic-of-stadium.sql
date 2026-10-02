@@ -1,10 +1,16 @@
-with q1 as(select *, 
-count(*) over(order by id range between current row and 2 following)following_cnt,
-count(*) over(order by id range between 2 preceding and current row)preceding_cnt,
-count(*) over(order by id range between 1 preceding and 1 following) as current_cnt
-from Stadium
-where people>=100)
-select id, visit_date,people
-from q1
-where following_cnt = 3 or preceding_cnt = 3 or current_cnt = 3
-order by visit_date;
+
+    with cte as(select *, lag(people,1) over(order by id) as prev1,
+    lag(people,2) over(order by id) as prev2,
+    lead(people,1) over(order by id) as next,
+    lead(people,2) over(order by id) as next_to_next
+    from stadium)
+    select id,visit_date, people
+    from cte
+    where people>=100
+    and (
+        (prev1>=100 and prev2>=100)
+        or(prev1>=100 and next>=100)
+        or(next>=100 and next_to_next>=100)
+    )
+    order by visit_date;
+
