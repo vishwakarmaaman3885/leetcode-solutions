@@ -1,6 +1,5 @@
-# Aman
-SELECT c.customer_id
-FROM Customer as c
-join product as p on c.product_key = p.product_key
-GROUP BY c.customer_id
-HAVING COUNT(DISTINCT c.product_key) = (select COUNT(DISTINCT p.product_key) from product as p);
+select customer_id
+from customer as c
+join product as p on c.product_key = p.product_key 
+group by customer_id
+having count(distinct c.product_key) = (select count(distinct p.product_key) from product as p)
