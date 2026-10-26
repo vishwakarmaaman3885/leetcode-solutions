@@ -1,7 +1,14 @@
-with cte as(select d.name as department, e.name as employee, e.salary as salary,
-dense_rank() over(partition by d.name order by e.salary desc) as rnk
-from employee as e
-join department as d on e.departmentid = d.id) 
-select department, employee, salary
-from cte
-where rnk<=3;
+SELECT
+    d.name AS department,
+    e.name AS employee,
+    e.salary
+FROM employee e
+JOIN department d
+    ON e.departmentid = d.id
+WHERE (
+    SELECT COUNT(DISTINCT e2.salary)
+    FROM employee e2
+    WHERE e2.departmentid = e.departmentid
+      AND e2.salary > e.salary
+) < 3
+ORDER BY department, salary DESC;
