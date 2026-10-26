@@ -1,4 +1,4 @@
-# Aman
-select score,
-dense_rank() over(order by score desc) as 'Rank'
-from Scores;
+# Write your MySQL query statement below
+
+Select score, dense_rank() over(order by score desc) as  `rank`
+from scores;
