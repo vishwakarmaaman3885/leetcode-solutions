@@ -1,9 +1,7 @@
-# Write your MySQL query statement below
-with cte as (select d.name as department, e.name as employee,
-e.salary as salary, 
-dense_rank() over(partition by d.name order by e.salary desc) as rnk
+select d.name as department, e.name as employee,
+e.salary as salary
 from employee as e
-join department as d on e.departmentid = d.id)
-select department, employee, salary
-from cte
-where rnk=1;
+join department as d on e.departmentid = d.id
+where e.salary in(select max(salary)
+from employee as e
+where  e.departmentid = d.id);
